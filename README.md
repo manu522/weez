@@ -1,5 +1,6 @@
 ![](https://i.imgur.com/PRfsYKP.png)
 
+![](https://travis-ci.org/botsdemanu/weez.svg?branch=master)
 Wrapper oficial de [Wezz API](https://www.weez.pw "Wezz API")
 
 Si quieres ver una documentación más avanzada y ver ejemplos de cada función, visita https://api.weez.pw
