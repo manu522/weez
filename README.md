@@ -1,6 +1,6 @@
 ![](https://i.imgur.com/PRfsYKP.png)
 
-![](https://travis-ci.org/botsdemanu/weez.svg?branch=master)
+[![Build Status](https://travis-ci.org/botsdemanu/weez.svg?branch=master)](https://travis-ci.org/botsdemanu/weez)
 
 Wrapper oficial de [Wezz API](https://www.weez.pw "Wezz API")
 
