@@ -12,7 +12,7 @@ Para poder usar el Wrapper necesitamos una clave, si no la tienes, registrate [a
 Para instalar simplemente hacemos
 
 ```bash
-npm install weez-wrapper
+npm install weez
 ```
 
 
