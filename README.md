@@ -1,7 +1,5 @@
 ![](https://i.imgur.com/PRfsYKP.png)
 
-[![Build Status](https://travis-ci.org/botsdemanu/weez.svg?branch=master)](https://travis-ci.org/botsdemanu/weez)
-
 Wrapper oficial de [Wezz API](https://www.weez.pw "Wezz API")
 
 Si quieres ver una documentación más avanzada y ver ejemplos de cada función, visita https://api.weez.pw
@@ -20,8 +18,8 @@ npm install weez
 # USO
 
 ```js
-var weezAPI = require("weez-wrapper");
-var weez = new weezAPI("TU-CLAVE");
+var Weez = require("weez");
+var weez = new Weez.WeezAPI("TU-CLAVE");
 ```
 ## Listado de todos las funciones
 Todos devuelven una **Promesa**
@@ -32,6 +30,8 @@ weez.drake("URL sí", "URL no")
 weez.coche("URL sí", "URL no")
 weez.rainbow("Imagen URL")
 weez.gru("texto1, texto2, texto3")
+weez.estoes("avatar, texto")
+weez.logro("texto")
 
 weez.randomLoli()
 weez.randomTrap()
@@ -41,14 +41,18 @@ weez.randomBeso()
 weez.randomAbrazo()
 weez.randomEdgy()
 weez.randomMeme()
+
+//Constructor
+weez.Bienvenida()
+
 ```
 
 ## Ejemplo de Uso
 
 **Drake**
 ```js
-  var weezAPI = require("weez-wrapper");
-  var weez = new weezAPI("Clave");
+var Weez = require("weez");
+var weez = new Weez.WeezAPI("TU-CLAVE");
   
 // Obtengo una de las imágenes por mención
  let member = message.mentions.users.first()
@@ -64,8 +68,8 @@ Resultado:
 
 **Random Loli**
 ```js
-var weezAPI = require("weez-wrapper");
-var weez = new weezAPI("Clave");
+var Weez = require("weez");
+var weez = new Weez.WeezAPI("TU-CLAVE");
   
 let link = await weez.randomLoli()
 
@@ -77,3 +81,28 @@ message.channel.send(embed)
 Resultado:
 
 ![](https://i.gyazo.com/87e511c0efee8e804b8c3ff7b63cd169.png)
+
+**Bienvenida**
+
+```js
+
+const Weez = require('weez')
+
+let weez = new Weez.WeezAPI("TU-CLAVE")
+
+  let bienvenida = new Weez.Bienvenida()
+  .avatar(member.user.displayAvatarURL)
+  .fondo("https://i.imgur.com/0YrfJgx.jpg")
+  .textoTitulo(`Bienvenido ${member.user.username}`)
+  .textoDesc("Disfruta de tu tiempo aqui!")
+  .textoColor('ffffff') 
+  .acceso(weez)
+
+let img = await Weez.bienvenidaRender(bienvenida)
+
+member.guild.channels.get("ID del canal").send({files: [img]})
+```
+
+Resultado:
+
+![](https://cdn.discordapp.com/attachments/496311867929788416/526612479514509327/file.jpg)

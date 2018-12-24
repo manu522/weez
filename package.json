@@ -1,6 +1,6 @@
 {
   "name": "weez",
-  "version": "1.0.5",
+  "version": "1.2.2",
   "description": "Weez API Wrapper",
   "main": "src/index.js",
   "scripts": {
