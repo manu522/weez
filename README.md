@@ -2,6 +2,9 @@
 
 Wrapper oficial de [Wezz API](https://www.weez.pw "Wezz API")
 
+Weez es un Application Programming Interface (API) con una base de datos de imagenes y funciones de edición de plantillas, está pensado para el uso en Bots de Discord, pero cualquier aplicación puede hacer uso de las funciones por medio de pedidos HTTP
+
+
 Si quieres ver una documentación más avanzada y ver ejemplos de cada función, visita https://api.weez.pw
 
 # Instalación
@@ -24,6 +27,7 @@ var weez = new Weez.WeezAPI("TU-CLAVE");
 ## Listado de todos las funciones
 Todos devuelven una **Promesa**
 ```js
+// edicion de imagenes
 weez.trump("Texto de la nueva ley")
 weez.basura("Imagen URL")
 weez.drake("URL sí", "URL no")
@@ -32,7 +36,22 @@ weez.rainbow("Imagen URL")
 weez.gru("texto1, texto2, texto3")
 weez.estoes("avatar, texto")
 weez.logro("texto")
+weez.cerebro("texto1, texto2, texto3, texto4")
+weez.susto("avatar")
+weez.wasted("avatar")
+weez.bob("avatar")
+weez.eyes("texto1, texto2, texto3")
+weez.triggered("avatar") // <-- Animado
+weez.psicopata("avatar")
+weez.elegante("texto1","texto2")
+weez.bart("avatar")
+weez.olvido("avatar")
+weez.arte("avatar")
 
+// Misc
+weez.letra("canción")
+
+// imagenes random
 weez.randomLoli()
 weez.randomTrap()
 weez.randomBoys()
@@ -42,7 +61,7 @@ weez.randomAbrazo()
 weez.randomEdgy()
 weez.randomMeme()
 
-//Constructor
+//Bienvenida (constructor)
 weez.Bienvenida()
 
 ```
@@ -106,3 +125,27 @@ member.guild.channels.get("ID del canal").send({files: [img]})
 Resultado:
 
 ![](https://cdn.discordapp.com/attachments/496311867929788416/526612479514509327/file.jpg)
+
+
+**Letra**
+
+```js
+
+const Weez = require('weez')
+
+let weez = new Weez.WeezAPI("TU-CLAVE")
+
+ let song = await weez.letra("El sensei - Las pastillas del Abuelo")
+
+ console.log(song.letra) // <--- la letra de la canción, en ella hay \n separando la indentación
+
+ console.log(song.imagen) // <--- link a la portada de la canción
+
+ // Obviamente se puede mandar en un embed, message.channel.send() y en donde quieran
+ // digo por las dudads.
+
+ // Si no encuentra letra, se va a crear la propiedad .mensaje la cual va a decir que no la encontro,
+ // puedes simplemente hacer:
+ // if(song.mensaje) return console.log('No se encontro la letra')
+ //  y listo
+```
