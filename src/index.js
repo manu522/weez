@@ -66,12 +66,83 @@ class WeezAPI {
         if (res.body.mensaje) throw new WeezError(res.body.mensaje)
         return res.body
     }
+    async cerebro(txt1, txt2, txt3, txt4) {
+        let res = await requester.get(`http://weez.pw/api/cerebro?op1=${txt1}&op2=${txt2}&op3=${txt3}&op4=${txt4}`).set("clave", this.token)
+        if (res.body.mensaje) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async letra(song) {
+        let res = await requester.get(`http://weez.pw/api/letra?song=${song}`).set("clave", this.token)
+        if (res.body.success == false && res.body.mensaje.startsWith('No')) return res.body
+        else if(res.body.success == false) throw new WeezError(res.body.mensaje)
+        else return res.body
+    }
+    async bob(avatar) {
+        let res = await requester.get(`http://weez.pw/api/bob?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async wasted(avatar) {
+        let res = await requester.get(`http://weez.pw/api/wasted?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async eyes(txt1, txt2, txt3) {
+        let res = await requester.get(`http://weez.pw/api/eyes?op1=${txt1}&op2=${txt2}&op3=${txt3}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    } 
+    async susto(avatar) {
+        let res = await requester.get(`http://weez.pw/api/susto?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+
+    async buscarAnime(nombre) {
+        let res = await requester.get(`http://weez.pw/api/anime?anime=${nombre}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body.data
+    }
+    async animeInfo(ids) {
+        let res = await requester.get(`http://weez.pw/api/anime?animeinfo=${ids}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+     async triggered(avatar) {
+        let res = await requester.get(`http://weez.pw/api/triggered?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async elegante(normal, elegante) {
+        let res = await requester.get(`http://weez.pw/api/elegante?normal=${normal}&elegante=${elegante}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async psicopata(avatar) {
+        let res = await requester.get(`http://weez.pw/api/psicopata?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async bart(avatar) {
+        let res = await requester.get(`http://weez.pw/api/bart?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async olvido(avatar) {
+        let res = await requester.get(`http://weez.pw/api/olvido?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async arte(avatar) {
+        let res = await requester.get(`http://weez.pw/api/arte?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
     ///////////////////////////
     //
     // RANDOM
     //
     //////////////////////////
-
     async randomLoli() {
         let res = await requester.get(`http://weez.pw/api/random/loli`).set("clave", this.token)
         if (res.body.success == false) throw new WeezError(res.body.mensaje)
