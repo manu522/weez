@@ -1,5 +1,11 @@
 ![](https://i.imgur.com/PRfsYKP.png)
 
+# Atención
+Los servidores de weez dejaran de funcionar el mes 8 del 2020
+
+
+
+
 Wrapper oficial de [Wezz API](https://www.weez.pw "Wezz API")
 
 Weez es API con una base de datos de imagenes y funciones de edición de plantillas, está pensado para el uso en Bots de Discord, pero cualquier aplicación puede hacer uso de las funciones por medio de pedidos HTTP
