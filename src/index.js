@@ -15,7 +15,7 @@ class WeezError extends TypeError {
     */
     this.message = error; 
     }
-  }
+}
   
 class WeezAPI {
     /**
@@ -30,6 +30,7 @@ class WeezAPI {
         let res = await requester.get(`http://weez.pw/api/trump?texto=${text}`).set("clave", this.token)
         if (res.body.mensaje) throw new WeezError(res.body.mensaje)
         return res.body
+        
     }
     async basura(url) {
         let res = await requester.get(`http://weez.pw/api/basura?avatar=${url}`).set("clave", this.token)
@@ -57,22 +58,22 @@ class WeezAPI {
         return res.body
     }
     async estoes(avatar, texto) {
-        let res = await requester.get(`http://weez.pw/api/esto_es?avatar=${avatar}&texto=${texto}`).set("clave", this.token)
+        let res = await requester.get(`http://weez.pw/api/esto_es?avatar=${avatar}&texto=${encodeURIComponent(texto)}`).set("clave", this.token)
         if (res.body.mensaje) throw new WeezError(res.body.mensaje)
         return res.body
     }
     async logro(texto) {
-        let res = await requester.get(`http://weez.pw/api/logro?texto=${texto}`).set("clave", this.token)
+        let res = await requester.get(`http://weez.pw/api/logro?texto=${encodeURIComponent(texto)}`).set("clave", this.token)
         if (res.body.mensaje) throw new WeezError(res.body.mensaje)
         return res.body
     }
     async cerebro(txt1, txt2, txt3, txt4) {
-        let res = await requester.get(`http://weez.pw/api/cerebro?op1=${txt1}&op2=${txt2}&op3=${txt3}&op4=${txt4}`).set("clave", this.token)
+        let res = await requester.get(`http://weez.pw/api/cerebro?op1=${encodeURIComponent(txt1)}&op2=${encodeURIComponent(txt2)}&op3=${encodeURIComponent(txt3)}&op4=${encodeURIComponent(txt4)}`).set("clave", this.token)
         if (res.body.mensaje) throw new WeezError(res.body.mensaje)
         return res.body
     }
     async letra(song) {
-        let res = await requester.get(`http://weez.pw/api/letra?song=${song}`).set("clave", this.token)
+        let res = await requester.get(`http://weez.pw/api/letra?song=${encodeURIComponent(song)}`).set("clave", this.token)
         if (res.body.success == false && res.body.mensaje.startsWith('No')) return res.body
         else if(res.body.success == false) throw new WeezError(res.body.mensaje)
         else return res.body
@@ -88,7 +89,7 @@ class WeezAPI {
         return res.body
     }
     async eyes(txt1, txt2, txt3) {
-        let res = await requester.get(`http://weez.pw/api/eyes?op1=${txt1}&op2=${txt2}&op3=${txt3}`).set("clave", this.token)
+        let res = await requester.get(`http://weez.pw/api/eyes?op1=${encodeURIComponent(txt1)}&op2=${encodeURIComponent(txt2)}&op3=${encodeURIComponent(txt3)}`).set("clave", this.token)
         if (res.body.success == false) throw new WeezError(res.body.mensaje)
         return res.body
     } 
@@ -114,7 +115,7 @@ class WeezAPI {
         return res.body
     }
     async elegante(normal, elegante) {
-        let res = await requester.get(`http://weez.pw/api/elegante?normal=${normal}&elegante=${elegante}`).set("clave", this.token)
+        let res = await requester.get(`http://weez.pw/api/elegante?normal=${encodeURIComponent(normal)}&elegante=${encodeURIComponent(elegante)}`).set("clave", this.token)
         if (res.body.success == false) throw new WeezError(res.body.mensaje)
         return res.body
     }
@@ -135,6 +136,11 @@ class WeezAPI {
     }
     async arte(avatar) {
         let res = await requester.get(`http://weez.pw/api/arte?avatar=${avatar}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+    }
+    async traicion(avatar,avatar2) {
+        let res = await requester.get(`http://weez.pw/api/traicion?avatar=${avatar}&avatar2=${avatar2}`).set("clave", this.token)
         if (res.body.success == false) throw new WeezError(res.body.mensaje)
         return res.body
     }
@@ -184,100 +190,83 @@ class WeezAPI {
          return res.body.link
     }
 
-    
+    /////////////////
+    ///
+    /// Bienvenida 
+    ///
+    ////////////////
+
+    async getBienvenida(bienvenida){
+        
+        if(!bienvenida) throw new WeezError("Tienes que poner un constructor de bienvenida!")
+        if(!bienvenida.Avatar) throw new WeezError("Es obligatoria poner un avatar en la Bienvenida")
+        if(!bienvenida.H1) throw new WeezError("Es obligatoria el Titulo")
+        let fondo = bienvenida.fondo,
+            avatar = bienvenida.Avatar,
+            textoTitulo = bienvenida.H1,
+            textoDesc = bienvenida.H2 || " ",
+            textoColor = bienvenida.Color;
+        let res = await requester.get(`http://weez.pw/api/bienvenida?fondo=${encodeURIComponent(fondo)}&avatar=${avatar}&h1=${encodeURIComponent(textoTitulo)}&h2=${encodeURIComponent(textoDesc)}&color=${encodeURIComponent(textoColor)}`).set("clave", this.token)
+        if (res.body.success == false) throw new WeezError(res.body.mensaje)
+        return res.body
+      }
     
 }
-
 
 /**
  * La bienvenida que se quiere crear
  * @param {Object} [datos] Los datos que se van a pasar
  */
 class Bienvenida { 
- constructor(datos = {}) { 
-}
-     /**
+    /**
     * @param {URL} fondo <OPCIONAL> Un url al fondo de la bienvenida, si se deja vacio, el fondo sera transparente.
     * @private
     */
+    fondo(fondo) {
+        this.fondo = fondo;
+        return this;
+    }
 
-fondo(fondo) {
- this.fondo = fondo;
-return this;
+    /**
+    * @param {URL} avatar <OBLIGATORIO> Un url al avatar de la persona.
+    * @private
+    */
+    avatar(avatar) {
+        this.Avatar = avatar;
+        return this;
+    }
+
+    /** 
+    * @param {string} h1 <OBLIGATORIO> El texto grande que aparecera abajo del avatar.
+    * @private
+    */
+    textoTitulo(h1) {
+        this.H1 = h1;
+        return this;
+    }
+
+    /** 
+    * @param {string} h2 <OPCIONAL> El texto pequeño que aparecera abajo del Titulo.
+    * @private
+    */ 
+    textoDesc(h2) {
+        this.H2 = h2;
+        return this;
+    }
+
+    /** 
+    * @param {string} color <OPCIONAL> El color hexadecimal de todos los textos, si no se pone o el color es invalido, quedara en blanco.
+    * @private
+    */
+
+    textoColor(color) {
+        this.Color = color;
+        return this;
+    }
 }
-
- /**
-* @param {URL} avatar <OBLIGATORIO> Un url al avatar de la persona.
-* @private
-*/
-
-avatar(avatar) {
-this.Avatar = avatar;
-return this;
-}
-
-/** 
-* @param {string} h1 <OBLIGATORIO> El texto grande que aparecera abajo del avatar.
-* @private
-*/
-
-textoTitulo(h1) {
-this.H1 = h1;
-return this;
-}
-
-/** 
-* @param {string} h2 <OPCIONAL> El texto pequeño que aparecera abajo del Titulo.
-* @private
-*/ 
-
- textoDesc(h2) {
-this.H2 = h2;
-return this;
-}
-
-/** 
-* @param {string} color <OPCIONAL> El color hexadecimal de todos los textos, si no se pone o el color es invalido, quedara en blanco.
-* @private
-*/
-
-textoColor(color) {
-this.Color = color;
-return this;
-          }
-/** 
-* @param {string} color <REQUERIDO> El color hexadecimal de todos los textos, si no se pone o el color es invalido, quedara en blanco.
-* @private
-*/
-acceso(weez) {
-this.weez = weez;
-return this;
-          }
-        }
-
-    
-async function bienvenidaRender(bienvenida){
-        if(!bienvenida) throw new WeezError("Tienes que poner un constructor de bienvenida!")
-        if(!bienvenida.Avatar) throw new WeezError("Es obligatoria poner un avatar en la Bienvenida")
-        if(!bienvenida.H1) throw new WeezError("Es obligatoria el Titulo")
-        if(!bienvenida.weez) throw new WeezError("Tienes que mandar el constructor de acceso")
-        fondo = bienvenida.fondo;
-        avatar = bienvenida.Avatar;
-        textoTitulo = bienvenida.H1;
-        textoDesc = bienvenida.H2 || " ";
-        textoColor = bienvenida.Color;
-        token = bienvenida.weez.token;
-       
-        let res = await requester.get(`http://weez.pw/api/bienvenida?fondo=${fondo}&avatar=${avatar}&h1=${textoTitulo}&h2=${textoDesc}&color=${textoColor}`).set("clave", token)
-        if (res.body.success == false) throw new WeezError(res.body.mensaje)
-         return res.body
-    
-      }
-
 
 module.exports = { 
     Bienvenida: Bienvenida,
     WeezAPI: WeezAPI,
-    bienvenidaRender: bienvenidaRender 
 }
 
