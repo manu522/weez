@@ -2,13 +2,13 @@
 
 Wrapper oficial de [Wezz API](https://www.weez.pw "Wezz API")
 
-Weez es API con una base de datos de imagenes y funciones de edición de plantillas, está pensado para el uso en Bots de Discord, pero cualquier aplicación puede hacer uso de las funciones por medio de pedidos HTTP
+Weez es un servicio de API con una base de datos de imagenes y funciones de edición de plantillas, está pensado para el uso en Bots de Discord, pero cualquier aplicación puede hacer uso de las funciones por medio de pedidos HTTP
 
 # Atención
 Los servidores de weez dejaran de funcionar el mes 8 del 2020
 
 # Instalación
-Para poder usar el Wrapper necesitamos una clave, si no la tienes, registrate [aquí](https://www.weez.pw "aquí")
+Para poder usar el API necesitamos una clave, si no la tienes, registrate [aquí](https://www.weez.pw "aquí")
 
 Para instalar hacemos
 
@@ -19,8 +19,8 @@ npm install weez
 # USO
 
 ```js
-var Weez = require("weez");
-var weez = new Weez.WeezAPI("TU-CLAVE");
+const Weez = require("weez");
+const weez = new Weez.WeezAPI("TU-CLAVE");
 ```
 ## Listado de todos las funciones
 Todos devuelven una **Promesa**
@@ -50,7 +50,6 @@ weez.arte("avatar")
 weez.letra("canción")
 
 // imagenes random
-weez.randomBoys()
 weez.randomPat()
 weez.randomBeso()
 weez.randomAbrazo()
