@@ -149,21 +149,6 @@ class WeezAPI {
     // RANDOM
     //
     //////////////////////////
-    async randomLoli() {
-        let res = await requester.get(`http://weez.pw/api/random/loli`).set("clave", this.token)
-        if (res.body.success == false) throw new WeezError(res.body.mensaje)
-         return res.body.link
-    }
-    async randomTrap() {
-        let res = await requester.get(`http://weez.pw/api/random/trap`).set("clave", this.token)
-        if (res.body.success == false) throw new WeezError(res.body.mensaje)
-         return res.body.link
-    }
-    async randomBoys() {
-        let res = await requester.get(`http://weez.pw/api/random/boys`).set("clave", this.token)
-        if (res.body.success == false) throw new WeezError(res.body.mensaje)
-         return res.body.link
-    }
     async randomPat() {
         let res = await requester.get(`http://weez.pw/api/random/pat`).set("clave", this.token)
         if (res.body.success == false) throw new WeezError(res.body.mensaje)
